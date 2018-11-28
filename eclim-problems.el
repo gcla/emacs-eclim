@@ -180,7 +180,9 @@ raised if no problem corresponds to the current position."
         (let ((line (line-number-at-pos)))
           (or (cl-find-if (lambda (p)
                             (and (string= (assoc-default 'filename p)
-                                          (file-truename buffer-file-name))
+                                          ;; gcla
+					  ;; (file-truename buffer-file-name))
+                                          buffer-file-name)
                                  (= (assoc-default 'line p) line)))
                           eclim--problems-list)
               (error "No problem on this line")))))))
@@ -449,10 +451,11 @@ See `eclim-problems-prev-same-file'."
 
 (defun eclim-problems-modeline-string ()
   "Return a modeline string summarizing problems in the current file."
-  (concat (format ": %s/%s"
-                  (eclim--count-current-errors)
-                  (eclim--count-current-warnings))
-          (when eclim--problems-refreshing "*")))
+  "")
+  ;; (concat (format ": %s/%s"
+  ;;                 (eclim--count-current-errors)
+  ;;                 (eclim--count-current-warnings))
+  ;;         (when eclim--problems-refreshing "*")))
 
 (provide 'eclim-problems)
 ;;; eclim-problems ends here

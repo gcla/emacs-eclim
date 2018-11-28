@@ -141,7 +141,9 @@ and also bound to PROBLEMS while evaluating BODY."
             '("-e" "true")))
          (cl-loop for problem across ,res
             do (let ((filecell (assq 'filename problem)))
-                 (when filecell (setcdr filecell (file-truename (cdr filecell))))))
+                 ;; gcla
+		 ;; (when filecell (setcdr filecell (file-truename (cdr filecell))))))
+                 (when filecell (setcdr filecell (cdr filecell)))))
          (setq eclim--problems-list ,res)
          (let ((,problems ,res))
            (setq eclim--problems-refreshing nil)
