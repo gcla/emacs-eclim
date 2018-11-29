@@ -195,7 +195,8 @@ may define more families in the future."
                     :after #'eclim-problems-advice-switch-to-buffer)
         (advice-add 'delete-file :around #'eclim-java-delete-file)
         (eclimd--ensure-started t (eclim--lambda-with-live-current-buffer
-                                    (eclim--maybe-create-project))))
+                                    ;;(eclim--maybe-create-project))))
+                                    (eclim-nothing))))
     (remove-hook 'find-file-hook 'eclim-problems-find-file-hook)
     (remove-hook 'after-save-hook 'eclim--problems-update-maybe t)
     (remove-hook 'after-save-hook 'eclim--after-save-hook t)
@@ -224,6 +225,9 @@ may define more families in the future."
                (python-mode "python_src_update"))
              (eclim--expand-args (list "-p" "-f")))))
   t)
+
+;; gcla
+(defun eclim-nothing())
 
 (defun eclim--maybe-create-project ()
   "Create a project if the current file does not belong to one.
