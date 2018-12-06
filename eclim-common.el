@@ -830,22 +830,23 @@ See `eclim--problems-filter-description' for more information."
 
 (defun eclim--problems-buffer-redisplay ()
   "Draw the problem list on screen."
-  (let ((buf (eclim--get-problems-buffer-create)))
-    (with-current-buffer
-        (set-buffer buf)
-      (eclim--problems-update-filter-description)
-      (save-excursion
-        (dolist (b (mapcar #'window-buffer (window-list)))
-          (set-buffer b)
-          (eclim-problems-highlight)))
-      (let ((inhibit-read-only t)
-            (line-number (line-number-at-pos))
-            (filecol-size (eclim--problems-filecol-size)))
-        (erase-buffer)
-        (cl-loop for problem across (eclim--problems-filtered)
-           do (eclim--insert-problem problem filecol-size))
-        (goto-char (point-min))
-        (forward-line (1- line-number))))))
+  )
+  ;; (let ((buf (eclim--get-problems-buffer-create)))
+  ;;   (with-current-buffer
+  ;;       (set-buffer buf)
+  ;;     (eclim--problems-update-filter-description)
+  ;;     (save-excursion
+  ;;       (dolist (b (mapcar #'window-buffer (window-list)))
+  ;;         (set-buffer b)
+  ;;         (eclim-problems-highlight)))
+  ;;     (let ((inhibit-read-only t)
+  ;;           (line-number (line-number-at-pos))
+  ;;           (filecol-size (eclim--problems-filecol-size)))
+  ;;       (erase-buffer)
+  ;;       (cl-loop for problem across (eclim--problems-filtered)
+  ;;          do (eclim--insert-problem problem filecol-size))
+  ;;       (goto-char (point-min))
+  ;;       (forward-line (1- line-number))))))
 
 (defun eclim--problems-filecol-size ()
   "Compute the width of the problems buffer column for file names.
